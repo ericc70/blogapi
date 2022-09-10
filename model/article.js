@@ -36,7 +36,12 @@ const ArticleSchema = new Schema (
         createdBy: {
             type: Schema.Types.ObjectId,
             ref: "User",
-        }
+        },
+        status:{
+            type: String,
+            default: 'public',
+            enum: ['public', 'private']
+        },
         
     }
 );
