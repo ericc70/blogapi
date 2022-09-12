@@ -39,7 +39,7 @@ const UserSchema = mongoose.Schema({
     status: {
         type: String,
         default: 'noActif',
-        enum: ['noactif', 'Actif', "Banned"]
+        enum: ['noActif', 'Actif', "Banned"]
     },
     role: {
         type: String,

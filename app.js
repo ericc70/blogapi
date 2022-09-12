@@ -5,6 +5,8 @@ const dotenv = require("dotenv");
 
 const connectDB = require("./config/db");
 const tagRoutes = require('./route/tag')
+const articleRoutes = require('./route/article')
+const userRoutes = require('./route/user')
 
 
 // Load config
@@ -22,6 +24,8 @@ const app = express();
 app.use(express.json());
 
 app.use('/api/tag', tagRoutes);
+app.use('/api/article', articleRoutes);
+app.use('/api/user', userRoutes);
 
 // app.post('/api/tag', (req, res, next) => {
   

@@ -11,11 +11,11 @@ module.exports.CreateTag = async (req, res) => {
             .then(() => res.status(201).json({
                 message: 'Objet enregistré !'
             }))
-            .catch(error => res.status(400).json({ error }))
+            // .catch(error => res.status(400).json({ error }))
 
     } catch (error) {
         res.status(400).json({
-           error
+            error: error
         })
     }
 }
@@ -77,7 +77,7 @@ module.exports.updateTag = async (req, res) => {
     } catch (error) {
       
         res.status(400).json({
-            error
+            error: error
         })
     }
 
@@ -94,7 +94,7 @@ module.exports.deleteTag = async (req, res) => {
             }))
     } catch (error) {
         res.status(500).json({
-            error
+            error: error
         })
     }
 
