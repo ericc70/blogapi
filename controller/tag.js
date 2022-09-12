@@ -1,6 +1,6 @@
 const Tag = require('../model/tag')
 
-exports.CreateTag = async (req, res) => {
+module.exports.CreateTag = async (req, res) => {
 
     try {
         const tagObj = JSON.parse(req.body.tag)
@@ -19,10 +19,10 @@ exports.CreateTag = async (req, res) => {
             error
         })
     }
-
 }
 
-exports.getAllTag = async (req, res) => {
+module.exports.getAllTag = async (req, res) => {
+
     try {
         await Tag.find().then(
             (tags) => {
@@ -37,7 +37,7 @@ exports.getAllTag = async (req, res) => {
 
 }
 
-exports.getOneTag = async (req, res) => {
+module.exports.getOneTag = async (req, res) => {
 
     try {
         await Tag.findOne({
@@ -54,7 +54,8 @@ exports.getOneTag = async (req, res) => {
     }
 
 }
-exports.updateTag = async (req, res) => {
+
+module.exports.updateTag = async (req, res) => {
 
     const tagObj = JSON.parse(req.body.tag)
 
@@ -74,13 +75,9 @@ exports.updateTag = async (req, res) => {
         })
     }
 
-
 }
 
-
-
-
-exports.deleteTag = async (req, res) => {
+module.exports.deleteTag = async (req, res) => {
 
     try {
         await Tag.deleteOne({
@@ -94,9 +91,5 @@ exports.deleteTag = async (req, res) => {
             error
         })
     }
-
-
-
-
 
 }
