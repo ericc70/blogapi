@@ -4,15 +4,15 @@ const dotenv = require("dotenv");
 // const mongoose = require("mongoose");
 
 const connectDB = require("./config/db");
+const tagRoutes = require('./route/tag')
+
+
 // Load config
 dotenv.config({ path: "./config/.env" });
 connectDB();
 const app = express();
-// schema mongo
-const articles = require('./model/article')
-const category = require('./model/category')
-const Tag = require('./model/tag')
-const user = require('./model/user')
+// route
+
 
 
 
@@ -21,7 +21,7 @@ const user = require('./model/user')
 // app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-
+app.use('/api/tag', tagRoutes);
 
 // app.post('/api/tag', (req, res, next) => {
   

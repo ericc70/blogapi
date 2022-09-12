@@ -1,22 +1,21 @@
 const Tag = require('../model/tag')
 
 module.exports.CreateTag = async (req, res) => {
-
+ const tagObj = new Tag(req.body)
     try {
-        const tagObj = JSON.parse(req.body.tag)
+       
         delete tagObj._id;
 
-        const tag = new Tag({
-            ...tagObj
-        });
-        await tag.save()
+       
+        await tagObj.save()
             .then(() => res.status(201).json({
                 message: 'Objet enregistré !'
             }))
+            .catch(error => res.status(400).json({ error }))
 
     } catch (error) {
         res.status(400).json({
-            error
+           error
         })
     }
 }
@@ -57,19 +56,26 @@ module.exports.getOneTag = async (req, res) => {
 
 module.exports.updateTag = async (req, res) => {
 
-    const tagObj = JSON.parse(req.body.tag)
+  
 
     try {
-        await Tag.updateOne({
-            _id: req.params.id
-        } {
-            ...thingObject,
-            _id: req.params.id
-        })
-            .then(() => res.status(201).json({
-                message: 'Objet enregistré !'
-            }))
+         await Tag.findByIdAndUpdate(
+            req.params.id,
+            {
+        
+                name: req.body.name,
+                description: req.body.description,
+                picture: req.body.picture
+            } 
+       
+          )
+          .then(() => res.status(200).json({
+            message: 'Objet modifié !'
+        }))
+
+          
     } catch (error) {
+      
         res.status(400).json({
             error
         })
