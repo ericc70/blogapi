@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+const uniqueValidator = require("mongoose-unique-validator");
 
 const ArticleSchema = new Schema (
     {
@@ -46,5 +46,5 @@ const ArticleSchema = new Schema (
     }
 );
 
-
+ArticleSchema.plugin(uniqueValidator);
 module.exports = model("Articles", ArticleSchema);

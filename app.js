@@ -8,11 +8,23 @@ const connectDB = require("./config/db");
 dotenv.config({ path: "./config/.env" });
 connectDB();
 const app = express();
+// schema mongo
+const articles = require('./model/article')
+const category = require('./model/category')
+const Tag = require('./model/tag')
+const user = require('./model/user')
 
 
 
-app.get("/t", (req, res)=>{
-    console.log("hello get home")
-    res.status(403).json({message: "FORBIDEN"});
-})
+
+//body parser
+// app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+
+
+// app.post('/api/tag', (req, res, next) => {
+  
+//   });
+  
 module.exports = app
