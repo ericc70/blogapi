@@ -1,6 +1,7 @@
 const User = require('../model/user')
-const bcrypt = require('bcrypt')
+
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
 
 module.exports.signup =  (req, res) => {
 
@@ -12,9 +13,7 @@ module.exports.signup =  (req, res) => {
         firstName:req.body.firstName ,
         lastName: req.body.lastName,
         displayName: req.body.displayName,
-        rgpd: req.body.rgpd,
-    
-      
+        rgpd: req.body.rgpd,  
         ipAt: req.body.ipAt
       });
       user.save()
@@ -29,7 +28,7 @@ module.exports.signup =  (req, res) => {
 
 
 
-exports.login = async (req, res, next) => {
+exports.login =  (req, res, next) => {
     User.findOne({ email: req.body.email })
     .then(user => {
         if (!user) {
@@ -47,7 +46,7 @@ exports.login = async (req, res, next) => {
                         'RANDOM_TOKEN_SECRET',
                         { expiresIn: '24h' }
                     )
-                });
+                }) 
             })
             .catch(error => res.status(500).json({ error }));
     })
