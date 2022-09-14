@@ -2,10 +2,10 @@ const Articles = require('../model/article')
 
 
 module.exports.createArticle = async (req, res) => {
-console.log(req.params)
+
     const articleObj = new Articles ({
-       category: [req.body.category],
-       tag: [ req.body.tag],
+       category: req.body.category,
+       tag: req.body.tag,
        title: req.body.title,
        slug: req.body.slug,
        body: req.body.body,
@@ -19,6 +19,9 @@ console.log(req.params)
     console.log(articleObj)
     try {
         await articleObj.save()
+        .then(() => res.status(201).json({
+            message: 'Objet enregistré !'
+        }))
 
     } catch (error) {
         res.status(400).json({
