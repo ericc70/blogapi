@@ -60,7 +60,7 @@ module.exports.logout =  (req, res) => {
 
 
 module.exports.getOneUser = async(req, res, next)=>{
-    console.log(req.auth )
+
     try {
         await User.findOne({ _id: req.auth.userId }, { password: 0})
         .then(
