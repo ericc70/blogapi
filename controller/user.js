@@ -41,8 +41,9 @@ exports.login =  (req, res, next) => {
                 }
                 res.status(200).json({
                     userId: user._id,
+                    userRole: user.role,
                     token: jwt.sign(
-                        { userId: user._id },
+                        { userId: user._id, userRole: user.role },
                         'RANDOM_TOKEN_SECRET',
                         { expiresIn: '24h' }
                     )
@@ -52,3 +53,44 @@ exports.login =  (req, res, next) => {
     })
     .catch(error => res.status(500).json({ error }));
 };
+
+module.exports.logout =  (req, res) => {
+    //
+}
+
+
+module.exports.getOneUser = async(req, res, next)=>{
+    console.log(req.auth )
+    try {
+        await User.findOne({ _id: req.auth.userId }, { password: 0})
+        .then(
+            (user) => {
+                res.status(200).json(user);
+            }
+        )
+    } catch (error) {
+        res.status(400).json({
+            error: error
+        })
+    }
+}
+module.exports.getAllUser = async(req, res, next)=>{
+    try {
+        await User.find({},  { password: 0}).then(
+            (users) => {
+                res.status(200).json(users);
+            }
+        )
+    } catch (error) {
+        res.status(400).json({
+            error: error
+        });
+    }
+
+
+}
+module.exports.updateUser = async(req, res, next)=>{}
+module.exports.deleteUser = async(req, res, next)=>{}
+module.exports.chgStatus = async(req, res, next)=>{}
+module.exports.chgRoles = async(req, res, next)=>{}
+// module.exports.chgRoles = async(req, res, next)=>{}
