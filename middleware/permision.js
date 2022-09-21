@@ -1,4 +1,5 @@
 const Tag = require('../model/tag')
+const User = require('../model/user')
 //   canView = (user, project) => {
 //     return (
 //       user.role === ROLE.ADMIN ||
@@ -67,3 +68,46 @@ module.exports = onlyAdminOrCraetorArticle =  (obj) => {
       next();
     };
   };
+
+
+  module.exports = canInteractUser = () =>{
+
+ 
+    try {
+      
+      return async (req, res, next) => {
+
+        const userCourant = await User.findById(req.params.id, "_id").lean()
+           .then(data =>
+         
+             data._id.valueOf()
+             
+           )
+           .catch((e) =>  { console.log('Error undefined database')})
+           console.log(req.params) 
+           console.log("cre " + userCourant)
+     
+         if(!userCourant){
+               res.status(500).json( "utilisateur non trouvé 22")
+             }
+         if (req.auth.userRole == 'admin') {
+               next()
+             }
+         else if (userCourant == req.auth.userId) {
+        
+               next()
+             }
+        else {
+          res.status(403).json( "Acces inderdit not user")
+        }
+       
+      }
+
+    } catch (error) {
+// console.log("ee")
+      throw 'Invalid article ';
+    }
+
+
+
+  }

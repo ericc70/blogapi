@@ -23,11 +23,6 @@ module.exports.signup =  (req, res) => {
     .catch(error => res.status(500).json({ error }));
 }
 
-
-
-
-
-
 exports.login =  (req, res, next) => {
     User.findOne({ email: req.body.email })
     .then(user => {
@@ -57,7 +52,6 @@ exports.login =  (req, res, next) => {
 module.exports.logout =  (req, res) => {
     //
 }
-
 
 module.exports.getOneUser = async(req, res, next)=>{
 
@@ -89,8 +83,53 @@ module.exports.getAllUser = async(req, res, next)=>{
 
 
 }
-module.exports.updateUser = async(req, res, next)=>{}
-module.exports.deleteUser = async(req, res, next)=>{}
+module.exports.updateUser = async(req, res, next)=>{
+    try {
+        await User.findByIdAndUpdate(
+           req.params.id,
+           {
+       
+            email: req.body.email,
+            firstName:req.body.firstName ,
+            lastName: req.body.lastName,
+            displayName: req.body.displayName,
+            rgpd: req.body.rgpd,  
+           } 
+      
+         )
+         .then(() => res.status(200).json({
+           message: 'Objet modifié !'
+       }))
+
+         
+   } catch (error) {
+     
+       res.status(400).json({
+           error: error
+       })
+   }
+
+
+
+
+}
+module.exports.deleteUser = async(req, res, next)=>{
+
+    try {
+        await User.deleteOne({
+            _id: req.params.id
+        })
+            .then(() => res.status(200).json({
+                message: 'Objet supprimé !'
+            }))
+    } catch (error) {
+        res.status(500).json({
+            error: error
+        })
+    }
+
+}
 module.exports.chgStatus = async(req, res, next)=>{}
 module.exports.chgRoles = async(req, res, next)=>{}
+module.exports.chgPasswd = async(req, res, next)=>{}
 // module.exports.chgRoles = async(req, res, next)=>{}

@@ -29,9 +29,10 @@ module.exports.createArticle = async (req, res) => {
     }
 }
 
+
 module.exports.fetchAllArticles = async (req, res) => {
     try {
-        await Articles.find().then(
+        await Articles.find({}).then(
             (tags) => {
                 res.status(200).json(tags);
             }

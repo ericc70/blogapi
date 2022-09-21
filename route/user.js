@@ -12,5 +12,7 @@ router.post('/login' , userCtrl.login)
 router.get('/logout' , userCtrl.logout)
 router.get('/' ,auth, userCtrl.getOneUser)
 router.get('/list' ,auth, authorize("admin"), userCtrl.getAllUser)
+router.put('/:id', auth, authorize('admin', 'user') ,canInteractUser(), userCtrl.updateUser)
+router.delete('/:id', auth, authorize('admin', 'user') , canInteractUser(), userCtrl.deleteUser)
 
 module.exports = router;
